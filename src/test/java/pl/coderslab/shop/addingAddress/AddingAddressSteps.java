@@ -1,4 +1,4 @@
-package pl.coderslab.shop;
+package pl.coderslab.shop.addingAddress;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -31,8 +31,8 @@ public class AddingAddressSteps {
         loginPage.enterEmailAndPassAndSubmit(email, pass);
     }
 
-    @And("I can see tile Addresses")
-    public void iCanSeeTileAddresses() {
+    @And("I see tile Addresses")
+    public void iSeeTileAddresses() {
         ShopMyAccountPage AccountPage = new ShopMyAccountPage(driver);
         if (AccountPage.isAddressesDisplayed()) {
             AccountPage.goToAddresses();
@@ -41,20 +41,20 @@ public class AddingAddressSteps {
         }
     }
 
-    @And("I can add new address")
+    @Then("I can add new address")
     public void iCanAddNewAddress() {
         WebElement addAddress = driver.findElement(By.xpath("//span[text()='Create new address']"));
         addAddress.click();
     }
 
-    @And("^I enter full address alias (.*) address (.*) city (.*) code (.*) country (.*) and phone (.*)$")
-    public void iEnterAddress(String alias, String address, String city, String code, String country, String phone) {
+    @And("^I can enter full address alias (.*) address (.*) city (.*) code (.*) country (.*) and phone (.*)$")
+    public void iCanEnterAddress(String alias, String address, String city, String code, String country, String phone) {
         ShopNewAddressFormPage addressesFormPage = new ShopNewAddressFormPage(driver);
         addressesFormPage.enterAddressAndSave(alias, address, city, code, country, phone);
     }
 
-    @Then("I can see new address")
-    public void iCanSeeNewAddress() {
+    @Then("I can see that address is added")
+    public void iCanSeeNewAddressIsAdded() {
         myAddressesPage = new ShopMyAddressesPage(driver);
         Assertions.assertTrue(myAddressesPage.newAddresIsAddded(), "There is only one address");
     }
@@ -65,13 +65,13 @@ public class AddingAddressSteps {
         Assertions.assertTrue(AddressAsText.contains(alias)&&AddressAsText.contains(address)&&AddressAsText.contains(city)&&AddressAsText.contains(code)&&AddressAsText.contains(country)&&AddressAsText.contains(phone), "Compared addresses differ");
     }
 
-    @And("I can remove this address")
-    public void iCanDeleteThisAddress() {
+    @And("I remove this address")
+    public void iRemoveThisAddress() {
         myAddressesPage.removeAddress();
     }
 
-    @And("I can see address is deleted")
-    public void iCanSeeAddressIsDeleted() {
+    @And("I see that address is deleted")
+    public void iSeeAddressIsDeleted() {
         WebElement alert = driver.findElement(By.className("alert-success"));
         Assertions.assertFalse(myAddressesPage.newAddresIsAddded(), "There is more than one address");
         Assertions.assertTrue(alert.isDisplayed(), "Success alert should be visible");

@@ -1,4 +1,4 @@
-package pl.coderslab.shop;
+package pl.coderslab.shop.addingAddress;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +12,9 @@ public class ShopMyAccountPage {
     @FindBy(xpath = "//a[@href='https://mystore-testlab.coderslab.pl/index.php?controller=addresses']")
     private WebElement addressesTile;
 
+    @FindBy(xpath = "//span[text()='Home']")
+    private WebElement HomeLink;
+
     public ShopMyAccountPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -21,7 +24,11 @@ public class ShopMyAccountPage {
         return addressesTile.isDisplayed();
     }
 
-    public void goToAddresses () {
+    public void goToAddresses() {
         addressesTile.click();
+    }
+
+    public void returHome() {
+        HomeLink.click();
     }
 }

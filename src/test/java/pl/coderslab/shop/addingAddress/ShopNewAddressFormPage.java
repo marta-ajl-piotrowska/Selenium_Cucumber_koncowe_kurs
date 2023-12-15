@@ -1,4 +1,4 @@
-package pl.coderslab.shop;
+package pl.coderslab.shop.addingAddress;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
