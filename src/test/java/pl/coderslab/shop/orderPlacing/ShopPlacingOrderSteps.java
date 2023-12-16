@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.coderslab.shop.addingAddress.ShopLoginPage;
@@ -24,7 +25,7 @@ public class ShopPlacingOrderSteps {
     ShopHummingbirdPage hummingBirdPage;
     ShopOrderPage orderPage;
 
-   @Given("I'm on shop's login page")
+   @Given("I'm on shop's authentication page")
     public void iOnShopSLoginPage() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -32,7 +33,7 @@ public class ShopPlacingOrderSteps {
         driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=authentication&back=my-account");
     }
 
-    @When("I enter email {string} and pass {string}")
+    @When("I enter valid credentials email {string} and pass {string}")
     public void iEnterEmailAndPass(String email, String pass) {
         ShopLoginPage loginPage = new ShopLoginPage(driver);
         loginPage.enterEmailAndPassAndSubmit(email, pass);
@@ -40,24 +41,26 @@ public class ShopPlacingOrderSteps {
 
     @And("I go to shop's main page")
     public void iGoToShopSMainPage() {
-
         ShopMyAccountPage accountPage = new ShopMyAccountPage(driver);
         accountPage.returHome();
     }
 
     @Then("I can order Hummingbird Printed Sweater")
     public void iCanOrderHummingbirdPrintedSweater() {
-        WebElement hummingbirdSweater = driver.findElement(By.xpath("//a[text()='Hummingbird printed sweater']"));
-        hummingbirdSweater.click();
+       WebElement hummingbirdSweater = driver.findElement(By.xpath("//a[text()='Hummingbird printed sweater']"));
+       hummingbirdSweater.click();
     }
 
-//    @And("I verify if discount for it is {int}%")
-//    public void iVerifyIfDiscountForItIs(int arg0) {
-//    }
+    @And("I verify if discount for it is {int}%")
+    public void iVerifyIfDiscountForItIs(int discount) {
+       hummingBirdPage = new ShopHummingbirdPage(driver);
+        Assertions.assertTrue(hummingBirdPage.isDiscountDisplayed(), "Discount should be visible");
+        String expectedDiscount = "SAVE " + String.valueOf(discount) + "%";
+        Assertions.assertEquals(hummingBirdPage.getDiscountAsText(), expectedDiscount);
+    }
 
     @Then("^I can choose size (.*)$")
     public void iCanChooseSize(String size) {
-        hummingBirdPage = new ShopHummingbirdPage(driver);
         hummingBirdPage.chooseSize(size);
     }
 
@@ -115,15 +118,7 @@ public class ShopPlacingOrderSteps {
         FileUtils.copyFile(src, new File("src/Cucumber/screenshots/order" + formatedDateTime + ".png"));
     }
 
-//    @Then("Then I go to orders history")
-//    public void iGoToHistoryOfTheOrders() {
-//    }
-
-//    @And("I verify if my order is on the list od awaiting check payment list with valid cost")
-//    public void iVerifyIfMyOrderIsOnTheListOdAwaitingCheckPaymentListWithValidCost() {
-//    }
-
-    @And("I close the browser")
+   @And("I close my browser")
     public void iCloseMyBrowser() {
         driver.quit();
     }

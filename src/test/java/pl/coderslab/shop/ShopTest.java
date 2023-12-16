@@ -1,4 +1,4 @@
-package pl.coderslab.shop.addingAddress;
+package pl.coderslab.shop;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

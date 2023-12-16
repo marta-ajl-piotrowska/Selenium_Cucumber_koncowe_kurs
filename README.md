@@ -37,6 +37,4 @@ Napisz skrypt, który:
 9. wybierze opcję płatności - Pay by Check,
 10. kliknie na "place order",
 11. zrobi screenshot z potwierdzeniem zamówienia i kwotą.
-12. wejdzie w historię zamówień i detale (najpierw kliknij w użytkownika zalogowanego, później kafelek),
-13. sprawdzi czy zamówienie znajduje się na liście ze statusem "Awaiting check payment" i kwotą taką samą jak na zamówieniu dwa kroki wcześniej.
 

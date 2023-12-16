@@ -1,5 +1,6 @@
 package pl.coderslab.shop.orderPlacing;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,9 +13,11 @@ public class ShopHummingbirdPage {
     @FindBy(className = "form-control-select")
     private WebElement sizesList;
 
-
     @FindBy(className = "add-to-cart")
     private WebElement addToCartBtn;
+
+    @FindBy(xpath = "//span[text()='Save 20%']")
+    private WebElement discountTag;
 
     public ShopHummingbirdPage(WebDriver driver) {
         this.driver = driver;
@@ -30,4 +33,14 @@ public class ShopHummingbirdPage {
     public void addToCart() {
         addToCartBtn.click();
     }
+
+    public boolean isDiscountDisplayed() {
+        return discountTag.isDisplayed();
+    }
+
+    public String getDiscountAsText() {
+        String realDiscount = discountTag.getText();
+        return realDiscount;
+    }
 }
+

@@ -47,14 +47,14 @@ public class AddingAddressSteps {
         addAddress.click();
     }
 
-    @And("^I can enter full address alias (.*) address (.*) city (.*) code (.*) country (.*) and phone (.*)$")
+    @Then("^I can enter full address alias (.*) address (.*) city (.*) code (.*) country (.*) and phone (.*)$")
     public void iCanEnterAddress(String alias, String address, String city, String code, String country, String phone) {
         ShopNewAddressFormPage addressesFormPage = new ShopNewAddressFormPage(driver);
         addressesFormPage.enterAddressAndSave(alias, address, city, code, country, phone);
     }
 
-    @Then("I can see that address is added")
-    public void iCanSeeNewAddressIsAdded() {
+    @And("I see that address is added")
+    public void iSeeThatAddressIsAdded() {
         myAddressesPage = new ShopMyAddressesPage(driver);
         Assertions.assertTrue(myAddressesPage.newAddresIsAddded(), "There is only one address");
     }
@@ -77,7 +77,7 @@ public class AddingAddressSteps {
         Assertions.assertTrue(alert.isDisplayed(), "Success alert should be visible");
     }
 
-    @Then("I close the browser")
+    @And("I close the browser")
     public void iCloseTheBrowser() {
         driver.quit();
     }
